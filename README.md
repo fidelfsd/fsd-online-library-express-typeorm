@@ -87,5 +87,49 @@ El proyecto consiste en desarrollar una API RESTful para la gestión de préstam
 ![Database](./library_loan_manag_db.png)
 
 
+## Instrucciones de uso
+
+1. Clonar el repositorio
+   
+2. Instalar las dependencias:
+
+    ```bash
+    npm install
+    ```
+3. Crear la base de datos
+   
+4. Ejecutar las migraciones:
+
+    ```bash
+    npm run db:migrate
+    ```
+
+5. Ejecutar los seeders:
+
+    ```bash
+    npm run db:seed
+    ```
+
+6. Ejecutar el servidor en desarrollo:
+    ```bash
+    npm run dev
+    ```
+
+7. Ejecutar el servidor (en desarrollo) :
+    ```bash
+    npm run dev
+    ```
+
+8. Compilar el proyecto para produccón:
+    ```bash
+    npm run build
+    ```
+
+9. Ejecutar el servidor (en producción):
+    ```bash
+    npm start
+    ```
+
+
 ## Guía detallada
 [Guía detallada](./setup-guide.md)
