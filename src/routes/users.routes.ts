@@ -4,52 +4,52 @@ const router = express.Router();
 
 // Users routes
 router.get("/profile", (req, res) => {
-   res.send("get profile");
+   res.send("Detalles del perfil");
 });
 
 router.put("/profile", (req, res) => {
-   res.send("put profile");
+   res.send("Actualiza perfil");
 });
 
 router.get("/loans", (req, res) => {
-   res.send("get loans");
+   res.send("Obtener mis préstamos");
 });
 
 router.get("/favorite-books", (req, res) => {
-   res.send("get favorite_books");
+   res.send("Obtener mis favoritos");
 });
 
 router.post("/favorite-books", (req, res) => {
-   res.send("post favorite_books");
+   res.send("Agregar mi favorito");
 });
 
 router.delete("/favorite-books/:bookId", (req, res) => {
-   res.send("delete favorite_books");
+   res.send("Eliminar mi favorito");
 });
 
 // Protected routes
 router.get("/", (req, res) => {
-   res.send("get users");
+   res.send("Lista de usuarios");
 });
 
 router.get("/:id", (req, res) => {
-   res.send("get user by id");
+   res.send("Detalles de usuario");
 });
 
 router.put("/:id", (req, res) => {
-   res.send("put user by id");
+   res.send("Actualiza usuario");
 });
 
 router.delete("/:id", (req, res) => {
-   res.send("delete user by id");
+   res.send("Elimina usuario");
 });
 
 router.get("/:id/loans", (req, res) => {
-   res.send("get user loans by user id");
+   res.send("Préstamos por usuario");
 });
 
 router.put("/:id/role", (req, res) => {
-   res.send("modify user role by user id");
+   res.send("Cambiar rol");
 });
 
 export default router;
