@@ -24,9 +24,9 @@ El proyecto consiste en desarrollar una API RESTful para la gestión de préstam
 | GET    | `/api/users/profile`                 | Detalles del perfil    | user    |
 | PUT    | `/api/users/profile`                 | Actualiza perfil       | user    |
 | GET    | `/api/users/loans`                   | Obtener mis préstamos  | user    |
-| GET    | `/api/users/favorite_books`          | Obtener mis favoritos  | user    |
-| POST   | `/api/users/favorite_books`          | Agregar mi favorito    | user    |
-| DELETE | `/api/users/favorite_books/{bookId}` | Eliminar mi favorito   | user    |
+| GET    | `/api/users/favorite-books`          | Obtener mis favoritos  | user    |
+| POST   | `/api/users/favorite-books`          | Agregar mi favorito    | user    |
+| DELETE | `/api/users/favorite-books/{bookId}` | Eliminar mi favorito   | user    |
 | GET    | `/api/users`                         | Lista de usuarios      | admin   |
 | GET    | `/api/users/{id}`                    | Detalles de usuario    | admin   |
 | PUT    | `/api/users/{id}`                    | Actualiza usuario      | admin   |
