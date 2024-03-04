@@ -24,8 +24,11 @@ router.post("/favorite_books", (req, res) => {
 });
 
 router.delete("/favorite_books/:bookId", (req, res) => {
-   res.send("post favorite_books");
+   res.send("delete favorite_books");
 });
+
+// Protected routes
+
 
 
 export default router;
