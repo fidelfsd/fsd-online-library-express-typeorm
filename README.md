@@ -109,13 +109,13 @@ El proyecto consiste en desarrollar una API RESTful para la gestión de préstam
     ```bash
     npm run db:seed
     ```
-    
+
 6. Ejecutar el servidor (en desarrollo) :
     ```bash
     npm run dev
     ```
 
-7. Compilar el proyecto para produccón:
+7. Compilar el proyecto para producción:
     ```bash
     npm run build
     ```
