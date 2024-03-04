@@ -19,21 +19,21 @@ El proyecto consiste en desarrollar una API RESTful para la gestión de préstam
 
 ### Users
 
-| Método | URI                              | Acción                 | Rol     |
-|--------|----------------------------------|------------------------|---------|
-| GET    | `/api/users/profile`             | Detalles del perfil    | user    |
-| PUT    | `/api/users/profile`             | Actualiza perfil       | user    |
-| GET    | `/api/users/loans`               | Obtener mis préstamos  | user    |
-| GET    | `/api/users/favorite_books`      | Obtener mis favoritos  | user    |
-| POST   | `/api/users/favorite_books`      | Agregar mi favorito    | user    |
-| DELETE | `/api/users/favorite_books/{id}` | Eliminar mi favorito   | user    |
-| POST   | `/api/users`                     | Nuevo usuario          | admin   |
-| GET    | `/api/users`                     | Lista de usuarios      | admin   |
-| GET    | `/api/users/{id}`                | Detalles de usuario    | admin   |
-| PUT    | `/api/users/{id}`                | Actualiza usuario      | admin   |
-| DELETE | `/api/users/{id}`                | Elimina usuario        | admin   |
-| GET    | `/api/users/{id}/loans`          | Préstamos por usuario  | admin   |
-| PUT    | `/api/users/{id}/role`           | Cambiar rol            | admin   |
+| Método | URI                                  | Acción                 | Rol     |
+|--------|--------------------------------------|------------------------|---------|
+| GET    | `/api/users/profile`                 | Detalles del perfil    | user    |
+| PUT    | `/api/users/profile`                 | Actualiza perfil       | user    |
+| GET    | `/api/users/loans`                   | Obtener mis préstamos  | user    |
+| GET    | `/api/users/favorite_books`          | Obtener mis favoritos  | user    |
+| POST   | `/api/users/favorite_books`          | Agregar mi favorito    | user    |
+| DELETE | `/api/users/favorite_books/{bookId}` | Eliminar mi favorito   | user    |
+| POST   | `/api/users`                         | Nuevo usuario          | admin   |
+| GET    | `/api/users`                         | Lista de usuarios      | admin   |
+| GET    | `/api/users/{id}`                    | Detalles de usuario    | admin   |
+| PUT    | `/api/users/{id}`                    | Actualiza usuario      | admin   |
+| DELETE | `/api/users/{id}`                    | Elimina usuario        | admin   |
+| GET    | `/api/users/{id}/loans`              | Préstamos por usuario  | admin   |
+| PUT    | `/api/users/{id}/role`               | Cambiar rol            | admin   |
 
 ### Authors
 
