@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, Table } from "typeorm";
+import { MigrationInterface, QueryRunner, Table, TableUnique } from "typeorm";
 
 export class CreateLoansTable1708971332726 implements MigrationInterface {
    public async up(queryRunner: QueryRunner): Promise<void> {
@@ -46,6 +46,12 @@ export class CreateLoansTable1708971332726 implements MigrationInterface {
                   referencedTableName: "books",
                   referencedColumnNames: ["id"],
                },
+            ],
+            uniques: [
+               new TableUnique({
+                  name: "user_loandate_book_unique",
+                  columnNames: ["user_id", "book_id", "loan_date"],
+               }),
             ],
          }),
          true

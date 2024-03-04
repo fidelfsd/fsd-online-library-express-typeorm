@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, Table } from "typeorm";
+import { MigrationInterface, QueryRunner, Table, TableUnique } from "typeorm";
 
 export class CreateFavoriteBooksTable1708971675504
    implements MigrationInterface
@@ -35,6 +35,12 @@ export class CreateFavoriteBooksTable1708971675504
                   referencedTableName: "books",
                   referencedColumnNames: ["id"],
                },
+            ],
+            uniques: [
+               new TableUnique({
+                  name: "user_book_unique",
+                  columnNames: ["user_id", "book_id"],
+               }),
             ],
          }),
          true

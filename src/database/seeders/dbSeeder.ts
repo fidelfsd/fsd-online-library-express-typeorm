@@ -1,5 +1,6 @@
 import { AuthorSeeder } from "./AuthorSeeder";
 import { BookSeeder } from "./BookSeeder";
+import { LoanSeeder } from "./LoanSeeder";
 import { RoleSeeder } from "./RoleSeeder";
 import { UserSeeder } from "./UserSeeder";
 
@@ -10,4 +11,5 @@ import { UserSeeder } from "./UserSeeder";
    await new AuthorSeeder().start();
    await new BookSeeder().start();
    await new UserSeeder().start();
+   await new LoanSeeder().start();
 })();
