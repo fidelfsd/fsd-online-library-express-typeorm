@@ -1,4 +1,6 @@
 import express from "express";
+import { User } from "../models/User";
+import { userController } from "../controllers/userController";
 
 const router = express.Router();
 
@@ -28,13 +30,8 @@ router.delete("/favorite-books/:bookId", (req, res) => {
 });
 
 // Protected routes
-router.get("/", (req, res) => {
-   res.send("Lista de usuarios");
-});
-
-router.get("/:id", (req, res) => {
-   res.send("Detalles de usuario");
-});
+router.get("/", userController.getAll);
+router.get("/:id", userController.getById);
 
 router.put("/:id", (req, res) => {
    res.send("Actualiza usuario");
