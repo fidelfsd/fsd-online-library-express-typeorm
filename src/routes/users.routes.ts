@@ -30,23 +30,12 @@ router.delete("/favorite-books/:bookId", (req, res) => {
 });
 
 // Protected routes
+router.post("/", userController.create);
 router.get("/", userController.getAll);
 router.get("/:id", userController.getById);
-
-router.put("/:id", (req, res) => {
-   res.send("Actualiza usuario");
-});
-
-router.delete("/:id", (req, res) => {
-   res.send("Elimina usuario");
-});
-
-router.get("/:id/loans", (req, res) => {
-   res.send("Préstamos por usuario");
-});
-
-router.put("/:id/role", (req, res) => {
-   res.send("Cambiar rol");
-});
+router.put("/:id", userController.update);
+router.delete("/:id", userController.delete);
+router.get("/:id/loans", userController.getLoansByUserId);
+router.put("/:id/role", userController.updateRole);
 
 export default router;
