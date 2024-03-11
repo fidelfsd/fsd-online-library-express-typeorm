@@ -1,6 +1,7 @@
 import express from "express";
-import { User } from "../models/User";
 import { userController } from "../controllers/userController";
+import { sampleMiddleware } from "../middlewares/sampleMiddleware";
+import { auth } from "../middlewares/auth";
 
 const router = express.Router();
 
@@ -31,7 +32,9 @@ router.delete("/favorite-books/:bookId", (req, res) => {
 
 // Protected routes
 router.post("/", userController.create);
-router.get("/", userController.getAll);
+
+router.get("/", auth, sampleMiddleware, userController.getAll);
+
 router.get("/:id", userController.getById);
 router.put("/:id", userController.update);
 router.delete("/:id", userController.delete);
