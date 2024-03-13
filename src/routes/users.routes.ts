@@ -1,44 +1,27 @@
 import express from "express";
 import { userController } from "../controllers/userController";
-import { sampleMiddleware } from "../middlewares/sampleMiddleware";
 import { auth } from "../middlewares/auth";
+import { authorize } from "../middlewares/authorize";
 
 const router = express.Router();
 
+const ctrl = userController;
+
 // Users routes
-router.get("/profile", (req, res) => {
-   res.send("Detalles del perfil");
-});
-
-router.put("/profile", (req, res) => {
-   res.send("Actualiza perfil");
-});
-
-router.get("/loans", (req, res) => {
-   res.send("Obtener mis préstamos");
-});
-
-router.get("/favorite-books", (req, res) => {
-   res.send("Obtener mis favoritos");
-});
-
-router.post("/favorite-books", (req, res) => {
-   res.send("Agregar mi favorito");
-});
-
-router.delete("/favorite-books/:bookId", (req, res) => {
-   res.send("Eliminar mi favorito");
-});
+router.get("/profile", auth, ctrl.getProfile);
+router.put("/profile", auth, ctrl.updateProfile);
+router.get("/loans", auth, ctrl.getUserLoans);
+router.get("/favorite-books", auth, ctrl.getFavoriteBooks);
+router.post("/favorite-books", auth, ctrl.addFavoriteBook);
+router.delete("/favorite-books/:bookId", auth, ctrl.deleteBookFromFavorites);
 
 // Protected routes
-router.post("/", userController.create);
-
-router.get("/", auth, sampleMiddleware, userController.getAll);
-
-router.get("/:id", userController.getById);
-router.put("/:id", userController.update);
-router.delete("/:id", userController.delete);
-router.get("/:id/loans", userController.getLoansByUserId);
-router.put("/:id/role", userController.updateRole);
+router.post("/", auth, authorize(["admin"]), ctrl.create);
+router.get("/", auth, authorize(["admin"]), ctrl.getAll);
+router.get("/:id", auth, authorize(["admin"]), ctrl.getById);
+router.put("/:id", auth, authorize(["admin"]), ctrl.update);
+router.delete("/:id", auth, authorize(["admin"]), ctrl.delete);
+router.get("/:id/loans", auth, authorize(["manager"]), ctrl.getLoansByUserId);
+router.put("/:id/role", auth, authorize(["admin"]), ctrl.updateRole);
 
 export default router;

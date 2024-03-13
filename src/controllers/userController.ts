@@ -3,6 +3,7 @@ import { User } from "../models/User";
 import bcrypt from "bcrypt";
 import { UserRoles } from "../constants/UserRoles";
 import { Role } from "../models/Role";
+import { Book } from "../models/Book";
 
 // -----------------------------------------------------------------------------
 
@@ -243,6 +244,195 @@ export const userController = {
       } catch (error) {
          res.status(500).json({
             message: "Failed to update user role",
+         });
+      }
+   },
+
+   async getProfile(req: Request, res: Response): Promise<void> {
+      try {
+         const userId = req.tokenData.userId;
+
+         const user = await User.findOne({
+            relations: {
+               role: true,
+            },
+            where: { id: userId },
+         });
+
+         res.json(user);
+      } catch (error) {
+         res.status(500).json({
+            message: "Failed to retrieve user",
+         });
+      }
+   },
+
+   async updateProfile(
+      req: Request<{}, {}, Partial<User>, {}>,
+      res: Response
+   ): Promise<void> {
+      // Request<Params, Response, Body, Query>,
+      try {
+         const userId = req.tokenData.userId;
+         const { password, role, ...resUserData } = req.body;
+
+         const userToUpdate = await User.findOne({
+            where: { id: userId },
+         });
+
+         if (password) {
+            const hashedPassword = bcrypt.hashSync(password, 10);
+            userToUpdate!.password = hashedPassword;
+         }
+
+         const updatedUser: Partial<User> = {
+            ...userToUpdate,
+            ...resUserData,
+         };
+
+         await User.save(updatedUser);
+
+         res.status(202).json({ message: "User updated successfully" });
+      } catch (error) {
+         res.status(500).json({
+            message: "Failed to update user",
+         });
+      }
+   },
+
+   async getUserLoans(req: Request, res: Response): Promise<void> {
+      try {
+         const userId = req.tokenData.userId;
+
+         const user = await User.findOne({
+            relations: {
+               loans: {
+                  book: true,
+               },
+            },
+            select: {
+               loans: {
+                  id: true,
+                  book: {
+                     id: true,
+                     title: true,
+                     gender: true,
+                  },
+                  loanDate: true,
+                  dueDate: true,
+                  returnDate: true,
+               },
+            },
+            where: {
+               id: userId,
+            },
+         });
+
+         const userLoans = user!.loans;
+         if (userLoans?.length === 0) {
+            res.status(404).json({ message: "Loans not found" });
+            return;
+         }
+
+         res.status(200).json(userLoans);
+      } catch (error) {
+         res.status(500).json({
+            message: "Failed to retreive loans",
+         });
+      }
+   },
+
+   async getFavoriteBooks(req: Request, res: Response): Promise<void> {
+      try {
+         const userId = req.tokenData.userId;
+
+         const user = await User.findOne({
+            relations: {
+               favoriteBooks: {
+                  author: true,
+               },
+            },
+            where: { id: userId },
+         });
+
+         const favoriteBooks = user?.favoriteBooks;
+         if (favoriteBooks?.length === 0) {
+            res.status(404).json({ message: "No favorite books where found" });
+            return;
+         }
+
+         res.status(200).json(favoriteBooks);
+      } catch (error) {
+         res.status(500).json({
+            message: "Failed to retreive favorite books",
+         });
+      }
+   },
+
+   async addFavoriteBook(req: Request, res: Response): Promise<void> {
+      try {
+         const userId = req.tokenData.userId;
+         const bookId = Number(req.body.bookId);
+
+         const userToUpdate = await User.findOne({
+            relations: {
+               favoriteBooks: true,
+            },
+            where: { id: userId },
+         });
+
+         const bookToAdd = await Book.findOne({ where: { id: bookId } });
+         if (!bookToAdd) {
+            res.status(400).json({ message: "Book not found" });
+            return;
+         }
+
+         userToUpdate?.favoriteBooks?.push(bookToAdd);
+
+         await User.save(userToUpdate!);
+
+         res.status(201).json({
+            message: "Favorite book added successfully",
+         });
+      } catch (error) {
+         res.status(500).json({
+            message: "Failed to add favorite book",
+         });
+      }
+   },
+
+   async deleteBookFromFavorites(req: Request, res: Response): Promise<void> {
+      try {
+         const userId = req.tokenData.userId;
+         const bookId = Number(req.body.bookId);
+
+         const userToUpdate = await User.findOne({
+            relations: {
+               favoriteBooks: true,
+            },
+            where: { id: userId },
+         });
+
+         const bookToRemove = await Book.findOne({ where: { id: bookId } });
+         if (!bookToRemove) {
+            res.status(400).json({ message: "Book not found" });
+            return;
+         }
+
+         userToUpdate!.favoriteBooks = userToUpdate!.favoriteBooks?.filter(
+            (book) => {
+               return book.id !== bookToRemove.id;
+            }
+         );
+
+         await User.save(userToUpdate!);
+
+         res.status(200).json({
+            message: "Favorite book deleted successfully",
+         });
+      } catch (error) {
+         res.status(500).json({
+            message: "Failed to delete favorite book",
          });
       }
    },
