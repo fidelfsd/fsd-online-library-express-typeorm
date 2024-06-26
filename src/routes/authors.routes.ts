@@ -1,27 +1,22 @@
 import express from "express";
+import { authorController } from "../controllers/authorController";
+import { auth } from "../middlewares/auth";
+import { authorize } from "../middlewares/authorize";
 
 const router = express.Router();
 
-//  Public routes
-router.get("/", (req, res) => {
-   res.send("Lista autores");
-});
+const ctrl = authorController;
 
-router.get("/:id", (req, res) => {
-   res.send("Detalles autor");
-});
+//  Public routes
+router.get("/", ctrl.getAll);
+
+router.get("/:id", ctrl.getById);
 
 // Protected routes
-router.post("/", (req, res) => {
-   res.send("Nuevo autor");
-});
+router.post("/", auth, authorize(["admin"]), ctrl.create);
 
-router.put("/:id", (req, res) => {
-   res.send("Actualiza autor");
-});
+router.put("/:id", auth, authorize(["admin"]), ctrl.update);
 
-router.delete("/:id", (req, res) => {
-   res.send("Elimina autor");
-});
+router.delete("/:id", auth, authorize(["admin"]), ctrl.delete);
 
 export default router;
