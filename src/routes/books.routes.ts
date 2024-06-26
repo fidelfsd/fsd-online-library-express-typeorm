@@ -1,11 +1,11 @@
 import express from "express";
-import { authorController } from "../controllers/authorController";
+import { bookController } from "../controllers/bookController";
 import { auth } from "../middlewares/auth";
 import { authorize } from "../middlewares/authorize";
 
 const router = express.Router();
 
-const ctrl = authorController;
+const ctrl = bookController;
 
 //  Public routes
 router.get("/", ctrl.getAll);

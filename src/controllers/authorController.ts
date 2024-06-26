@@ -87,12 +87,12 @@ export const authorController = {
             return;
          }
 
-         const updatedUser: Partial<Author> = {
+         const updatedAuthor: Partial<Author> = {
             ...authorToUpdate,
             ...resAuthorData,
          };
 
-         await Author.save(updatedUser);
+         await Author.save(updatedAuthor);
 
          res.status(202).json({ message: "Author updated successfully" });
       } catch (error) {
